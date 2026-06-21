@@ -1,6 +1,6 @@
 {
   "name": "Aura Luxury Architecture",
-  "description": "Premium About Us biography, timeline showcase, credentials, and interactive leadership of a world-class luxury architecture, interior design, and construction firm.",
+  "description": "World-class Services page featuring interactive spatial estimators, before-after sliding visuals, detailed service deeper-dives, six-step workflows, masonry gallery slider, comparison registries, and high-converting briefing consultation schedulers.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

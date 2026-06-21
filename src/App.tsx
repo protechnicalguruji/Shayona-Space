@@ -4,27 +4,30 @@ import Footer from './components/Footer';
 import BookConsultationModal from './components/BookConsultationModal';
 import FloatingEnquiry from './components/FloatingEnquiry';
 
-// About Us modular components
-import AboutHero from './components/about/AboutHero';
-import OurStory from './components/about/OurStory';
-import MissionVision from './components/about/MissionVision';
-import CoreValues from './components/about/CoreValues';
-import OurJourney from './components/about/OurJourney';
-import Leadership from './components/about/Leadership';
-import OurTeam from './components/about/OurTeam';
-import WhyTrustUs from './components/about/WhyTrustUs';
-import Achievements from './components/about/Achievements';
-import Certifications from './components/about/Certifications';
-import AwardsShowcase from './components/about/AwardsShowcase';
-import WorkProcess from './components/about/WorkProcess';
-import TestimonialCarousel from './components/about/TestimonialCarousel';
-import OfficeGallery from './components/about/OfficeGallery';
-import FAQAccordion from './components/about/FAQAccordion';
-import CTASectionAbout from './components/about/CTASectionAbout';
-import StickySideNav from './components/about/StickySideNav';
+// Services page modular workspace
+import StickySideNavServices from './components/services/StickySideNavServices';
+import ServicesHero from './components/services/ServicesHero';
+import IntroSection from './components/services/IntroSection';
+import OurServicesGrid from './components/services/OurServicesGrid';
+import ServiceDetailsExpanded from './components/services/ServiceDetailsExpanded';
+import WorkProcessTimeline from './components/services/WorkProcessTimeline';
+import WhyChooseUsGrid from './components/services/WhyChooseUsGrid';
+import ServiceComparisonTable from './components/services/ServiceComparisonTable';
+import ServiceGallery from './components/services/ServiceGallery';
+import TestimonialSlider from './components/services/TestimonialSlider';
+import ServiceFAQs from './components/services/ServiceFAQs';
+import ConsultationFormSection from './components/services/ConsultationFormSection';
+import ExtraPremiumFeatures from './components/services/ExtraPremiumFeatures';
+import CallToActionSection from './components/services/CallToActionSection';
 
 export default function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  
+  // Interactive selected deep dive state
+  const [selectedServiceId, setSelectedServiceId] = useState('architecture');
+  
+  // Preselected service title for the booking form
+  const [prefServiceTitle, setPrefServiceTitle] = useState('Architecture');
 
   const handleOpenConsultation = () => {
     setIsConsultationOpen(true);
@@ -34,9 +37,12 @@ export default function App() {
     setIsConsultationOpen(false);
   };
 
-  const handleOpenProjects = () => {
-    // Falls back to direct smooth scroll to FAQ description or footer info
-    const target = document.querySelector('#our-journey');
+  // Synchronize card clicks with expansion deck
+  const handleSelectServiceFromGrid = (serviceId: string) => {
+    setSelectedServiceId(serviceId);
+    
+    // Smooth scroll down to detailed target
+    const target = document.querySelector('#detailed-service-deck');
     if (target) {
       const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 90;
       window.scrollTo({
@@ -46,76 +52,92 @@ export default function App() {
     }
   };
 
-  return (
-    <div className="relative min-h-screen bg-luxury-beige selection:bg-[#B08D57] selection:text-white" id="luxury-about-page-root">
-      {/* Sticky Bullet Navigation Indicator (Extra Premium) */}
-      <StickySideNav />
+  // Synchronize detailed CTA clicks with preselect-focused booking form
+  const handleOpenConsultationWithPreselect = (serviceTitle: string) => {
+    setPrefServiceTitle(serviceTitle);
+    
+    // Smooth scroll to core form container
+    const target = document.querySelector('#book-consultation');
+    if (target) {
+      const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  };
 
-      {/* Primary Navigation Header */}
+  const handleFormSubmitSuccess = (name: string, phone: string, email: string) => {
+    console.log(`Corporate briefing client coordinates verified under NDA: Name: ${name}, Phone: ${phone}`);
+  };
+
+  return (
+    <div className="relative min-h-screen bg-[#F8F6F2] selection:bg-[#B08D57] selection:text-white" id="luxury-services-page-root">
+      
+      {/* Services Bullet Indicator Panel */}
+      <StickySideNavServices />
+
+      {/* Navigation Brand Header */}
       <Header onOpenConsultation={handleOpenConsultation} />
 
-      {/* Pages Hero Section */}
-      <AboutHero />
+      {/* Cinematic Page Hero */}
+      <ServicesHero onOpenConsultation={handleOpenConsultation} />
 
-      {/* Our Corporate Story (Origins and Restraint) */}
-      <OurStory />
+      {/* Company Introduction Section */}
+      <IntroSection />
 
-      {/* Dual Mission & Vision Layout */}
-      <MissionVision />
+      {/* Core Capabilities Preview Grid */}
+      <OurServicesGrid onSelectService={handleSelectServiceFromGrid} />
 
-      {/* Company Achievements Counter Board */}
-      <Achievements />
-
-      {/* Six Premium Core Values Grid */}
-      <CoreValues />
-
-      {/* Interactive Selected Journeys Timeline */}
-      <OurJourney />
-
-      {/* Director & Founder Personal Video Statement */}
-      <Leadership />
-
-      {/* Elite Collaborator Team Grid */}
-      <OurTeam />
-
-      {/* 8-Grid Why Clients Trust Us */}
-      <WhyTrustUs />
-
-      {/* Verification Credentials & Certified Seals */}
-      <Certifications />
-
-      {/* Awards of Innovation Horizontal Showcase */}
-      <AwardsShowcase />
-
-      {/* Six Step Operational Work Process */}
-      <WorkProcess />
-
-      {/* Premium Sliding Appraisals and Client Testimonials */}
-      <TestimonialCarousel />
-
-      {/* Interactive Ateliers Location Map selector */}
-      <OfficeGallery />
-
-      {/* Common Queries Accordion Panel */}
-      <FAQAccordion />
-
-      {/* Infinite Scrolling CTA Engagement Block */}
-      <CTASectionAbout 
-        onOpenConsultation={handleOpenConsultation} 
-        onOpenProjects={handleOpenProjects}
+      {/* Interactive Deep-Dive Specification Deck */}
+      <ServiceDetailsExpanded 
+        selectedServiceId={selectedServiceId}
+        onSelectServiceId={setSelectedServiceId}
+        onOpenConsultationWithService={handleOpenConsultationWithPreselect}
       />
 
-      {/* Shared Premium Indexes Footer */}
+      {/* Six Step Operational Work Process Sequence */}
+      <WorkProcessTimeline />
+
+      {/* Core Feature Advantages Grid */}
+      <WhyChooseUsGrid />
+
+      {/* Interactive Service Framework Comparison table */}
+      <ServiceComparisonTable />
+
+      {/* Completed Exhibits Works Masonry Gallery */}
+      <ServiceGallery />
+
+      {/* Appraisals of Sovereignty Slider */}
+      <TestimonialSlider />
+
+      {/* Knowledge-Base Frequently Asked Inquiries Accordion */}
+      <ServiceFAQs />
+
+      {/* Interactive spatial-budget estimator and private briefing Scheduler */}
+      <ConsultationFormSection 
+        onFormSubmitSuccess={handleFormSubmitSuccess} 
+        serviceTitlePref={prefServiceTitle}
+      />
+
+      {/* Bento extras: hotspots, 360 virtual simulation & match quiz */}
+      <ExtraPremiumFeatures />
+
+      {/* Action final Bottom cta section */}
+      <CallToActionSection onOpenConsultation={handleOpenConsultation} />
+
+      {/* Navigation Brand Footer */}
       <Footer />
 
-      {/* Consultation Scheduling Sheets Modal */}
+      {/* General Booking Overlay sheets Modal */}
       <BookConsultationModal 
         isOpen={isConsultationOpen}
         onClose={handleCloseConsultation}
       />
 
-      {/* Dynamic Floating Chat Enquiry panel */}
+      {/* Persistent General Action floating desk */}
       <FloatingEnquiry onOpenConsultation={handleOpenConsultation} />
+
     </div>
   );
 }
