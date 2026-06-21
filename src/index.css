@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  
+  --color-luxury-gold: #B08D57;
+  --color-luxury-gold-hover: #C6A36B;
+  --color-luxury-beige: #F8F6F2;
+  --color-luxury-dark: #111111;
+  --color-luxury-charcoal: #1A1A1A;
+  --color-luxury-border: #E8E8E8;
+}
+
+/* Custom global styles for smooth premium feel */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-luxury-beige);
+  color: var(--color-luxury-charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scroll bar style */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F6F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #B08D57;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C6A36B;
+}
+
+/* Text selections */
+::selection {
+  background-color: #B08D57;
+  color: #FFFFFF;
+}
+
+/* Subtle image animation utilities */
+.image-zoom-container {
+  overflow: hidden;
+}
+.image-zoom-item {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.image-zoom-container:hover .image-zoom-item {
+  transform: scale(1.08);
+}
